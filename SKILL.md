@@ -33,19 +33,25 @@ Quando o usuário pede análise de um ativo ou situação de mercado, pense em q
 
 ### Via AI Router (mais rápido, $0 adicional)
 
+> **`<IP-DA-MALHA>`** é o endereço do host `claw` na malha privada de quem usa esta
+> skill. Quem tem a malha sabe o próprio endereço; quem não tem, não precisa do
+> alheio. Ficava aqui um IP real até 28/07/2026 — publicar usuário e endereço não
+> entrega credencial, mas entrega o alvo pronto, e isso não tem contrapartida.
+
+
 ```bash
 # Cotação e dados básicos (tier research = Perplexity com grounding)
-ssh claw@100.112.103.77 "curl -s -X POST http://127.0.0.1:3080/v1/chat \
+ssh claw@<IP-DA-MALHA> "curl -s -X POST http://127.0.0.1:3080/v1/chat \
   -H 'Content-Type: application/json' \
   -d '{\"messages\":[{\"role\":\"user\",\"content\":\"Cotação atual, P/L, EV/EBITDA, ROE e dividend yield de TICKER3. Dados B3 2026.\"}],\"tier\":\"research\"}'"
 
 # Sentimento e notícias recentes (tier social = Grok/Gemini grounding)
-ssh claw@100.112.103.77 "curl -s -X POST http://127.0.0.1:3080/v1/chat \
+ssh claw@<IP-DA-MALHA> "curl -s -X POST http://127.0.0.1:3080/v1/chat \
   -H 'Content-Type: application/json' \
   -d '{\"messages\":[{\"role\":\"user\",\"content\":\"Notícias e sentimento de mercado sobre TICKER3 nos últimos 7 dias\"}],\"tier\":\"social\"}'"
 
 # Análise macro (SELIC, IPCA, câmbio)
-ssh claw@100.112.103.77 "curl -s -X POST http://127.0.0.1:3080/v1/chat \
+ssh claw@<IP-DA-MALHA> "curl -s -X POST http://127.0.0.1:3080/v1/chat \
   -H 'Content-Type: application/json' \
   -d '{\"messages\":[{\"role\":\"user\",\"content\":\"SELIC atual, expectativas Focus, IPCA 12m, câmbio USD/BRL e perspectiva macro Brasil 2026\"}],\"tier\":\"research\"}'"
 ```
@@ -90,7 +96,7 @@ Analise o comportamento do dinheiro inteligente (institucional) vs. varejo:
 **Buscar notícias e insider:**
 ```bash
 # Fato relevante e comunicados CVM
-ssh claw@100.112.103.77 "curl -s -X POST http://127.0.0.1:3080/v1/chat \
+ssh claw@<IP-DA-MALHA> "curl -s -X POST http://127.0.0.1:3080/v1/chat \
   -H 'Content-Type: application/json' \
   -d '{\"messages\":[{\"role\":\"user\",\"content\":\"Fatos relevantes e insider trading em TICKER3. Fluxo estrangeiro B3 recente.\"}],\"tier\":\"social\"}'"
 ```
